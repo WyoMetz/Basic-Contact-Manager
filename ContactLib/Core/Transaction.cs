@@ -7,9 +7,9 @@ using System.Data.SQLite;
 
 namespace ContactLib
 {
-    public class DatabaseController
+    public class Transaction
     {
-        private string DbLocation = @"\ContactInfo.db";
+        private string DbLocation = @"ContactInfo.db";
 
         private SQLiteConnection DbConnection()
         {
