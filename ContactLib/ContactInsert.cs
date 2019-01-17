@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactLib
 {
-    public class SQLProcessor
+    public class ContactInsert
     {
         DatabaseController databaseController = new DatabaseController();
 
