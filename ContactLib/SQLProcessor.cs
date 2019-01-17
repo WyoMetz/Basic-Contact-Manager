@@ -10,16 +10,9 @@ namespace ContactLib
     {
         DatabaseController databaseController = new DatabaseController();
 
-        public void CreateTables()
-        {
-            string ContactTable = "CREATE TABLE IF NOT EXISTS Contacts (ID INTEGER PRIMARY KEY AUTOINCREMENT, FirstName VARCHAR(50) NOT NULL, LastName VARCHAR(80) NOT NULL, MI VARCHAR(3), VIP BOOL)";
-            databaseController.DbCommand(ContactTable);
-        }
-
-        public string InsertCommand(ContactModel contact)
+        public string ContactInsertCommand(Contact contact)
         {
             string ContactInsert = "INSERT INTO Contacts";
-            string miNull = "(FirstName, LastName, VIP)";
             string InsertStatement;
             if(contact.MI != null)
             {
@@ -29,7 +22,36 @@ namespace ContactLib
             {
                 InsertStatement = $"{ContactInsert} (FirstName, LastName, VIP) VALUES ('{contact.FirstName}', '{contact.LastName}', '{contact.VIP}')";
             }
+            contact.ID = Convert.ToInt32(databaseController.DbCommand(InsertStatement));
+            PhoneNumberInsert(contact);
+            EmailAddressInsert(contact);
+            return "Needs Completed.";
+        }
 
+        public void PhoneNumberInsert(Contact contact)
+        {
+            if(contact.PhoneNumber != null)
+            {
+                foreach (var number in contact.PhoneNumber)
+                {
+                    string Insert = $"INSERT INTO PhoneNumbers (PhoneNumber, ContactID) VALUES ('{number.Number}', '{contact.ID}')";
+                    long ID = databaseController.DbCommand(Insert);
+                    number.NumberID = Convert.ToInt32(ID);
+                }
+            }
+        }
+
+        public void EmailAddressInsert(Contact contact)
+        {
+            if(contact.EmailAddress != null)
+            {
+                foreach (var email in contact.EmailAddress)
+                {
+                    string Insert = $"INSERT INTO EmailAddresses (EmailAddress, ContactID) VALUES ('{email.Email}', {contact.ID}')";
+                    long ID = databaseController.DbCommand(Insert);
+                    email.EmailID = Convert.ToInt32(ID);
+                }
+            }
         }
     }
 }
