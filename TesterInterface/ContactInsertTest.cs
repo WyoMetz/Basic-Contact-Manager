@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ContactLib;
+using ContactLib.Core;
 
 namespace TesterInterface
 {
@@ -20,15 +21,15 @@ namespace TesterInterface
 
         EmailAddress emailAddress = new EmailAddress()
         {
-            Email = "Jason.Borne@killyou.com"
+            Email = "Jason.Borne@identity.com"
         };
 
         Contact contact = new Contact()
         {
             LastName = "Borne",
             FirstName = "Jason",
-            MI = "A",
-            VIP = true
+            MI = "B"
+            //Company = "UnKnown"
         };
 
         public ContactInsertTest()
@@ -56,6 +57,10 @@ namespace TesterInterface
             {
                 Console.WriteLine("Error Executing " + ex.Message.ToString());
             }
+            SQLProcessor processor = new SQLProcessor(Contact);
+            Console.WriteLine(processor.InsertContact());
+            Console.WriteLine(processor.InsertPhoneNumbers());
+            Console.WriteLine(processor.InserEmails());
         }
 
         

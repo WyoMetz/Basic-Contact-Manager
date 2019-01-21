@@ -10,5 +10,6 @@ namespace ContactLib
     {
         public int EmailID { get; set; }
         public string Email { get; set; }
+        public int ContactID { get; set; }
     }
 }

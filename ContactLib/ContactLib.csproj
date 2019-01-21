@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\SQLProcessor.cs" />
     <Compile Include="Core\UpdateContact.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Core\Transaction.cs" />
